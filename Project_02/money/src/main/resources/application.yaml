@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: money
+
+  # server:
+  #   port: 8081
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ewallet_db
+    username: postgres
+    password: Biman1997@
+  
+  jpa:
+    open-in-view: false 
+    hibernate:
+      ddl-auto: none     # Le schéma appartient à Flyway, jamais à Hibernate
+    properties:
+      hibernate: 
+        jdbc: 
+          time_zone: UTC  # Enregistre les dates en UTC
+
+  flyway:
+    enabled: true        # Active l'exécution des scripts SQL au démarrage

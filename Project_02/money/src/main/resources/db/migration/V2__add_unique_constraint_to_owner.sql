@@ -1,0 +1,1 @@
+ALTER TABLE wallet ADD CONSTRAINT uk_wallet_owner_name UNIQUE (owner_name);

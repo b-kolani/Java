@@ -1,9 +1,16 @@
 package ma.ewallet.money;
 
+import java.time.Instant;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.*;
 
 @Entity // Dit à JPA que cette classe correspond à notre table SQL
 @Table(name = "wallet") 
+@EntityListeners(AuditingEntityListener.class) // <--- Écoute les événements de sauvegarde
 public class Wallet {
     
     @Id // Clé primaire
@@ -16,9 +23,16 @@ public class Wallet {
     @Column(name = "balance", nullable = false)
     private double solde;
 
+    @CreatedDate 
+    @Column(name = "created_at", updatable = false, nullable = false)
+    private Instant createdAt;
+
+    @LastModifiedDate 
+    @Column(name = "last_modified_at", nullable = false)
+    private Instant lastModifiedAt;
+
     // Le fameux constructeur protected obligatoire pour JPA 
     protected  Wallet() {
-
     }
 
     // Notre constructeur métier pour créer un nouvel objet dans notre code
@@ -66,4 +80,7 @@ public class Wallet {
         return this.solde;
     }
 
+    // Getters pour l'audit 
+    public Instant getCreatedAt() { return this.createdAt; }
+    public Instant getLastModifiedAt() { return this.lastModifiedAt; }
 }
